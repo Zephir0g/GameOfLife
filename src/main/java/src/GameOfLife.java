@@ -17,6 +17,7 @@ public class GameOfLife extends JFrame {
 
     private JButton startButton;
     private JButton pauseButton;
+    private JButton regenerateButton;
     private GridPanel gridPanel;
     private Timer timer;
     private GameCounter gameCounter;
@@ -53,9 +54,19 @@ public class GameOfLife extends JFrame {
                 pauseGame();
             }
         });
+        regenerateButton = new JButton("Regenerate");
+        regenerateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                initializeGridState();
+                repaint();
+                gameCounter.reset();
+            }
+        });
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(startButton);
         buttonPanel.add(pauseButton);
+        buttonPanel.add(regenerateButton);
         add(buttonPanel, BorderLayout.NORTH);
 
         timer = new Timer(100, new ActionListener() {
@@ -76,7 +87,7 @@ public class GameOfLife extends JFrame {
         // Here we can initialize the grid state with some pattern
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-                gridState[i][j] = Math.random() < 0.5;
+                gridState[i][j] = Math.random() < 0.3;
             }
         }
     }

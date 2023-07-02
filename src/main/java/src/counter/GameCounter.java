@@ -26,4 +26,16 @@ public class GameCounter {
         return population;
     }
 
+    public void setGeneration(int generation) {
+        this.generation = generation;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
+    public void reset() {
+        generation = 0;
+        population = 0;
+    }
 }
