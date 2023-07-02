@@ -1,5 +1,7 @@
 package src;
 
+import src.counter.GameCounter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,28 +10,32 @@ import java.awt.event.ActionListener;
 public class GameOfLife extends JFrame {
 
     public static boolean[][] gridState;
-    private static int gridSize = 50;
+    private static int gridSize = 60;
     private static int cellSize = 20;
     public static Color bgColor = Color.WHITE;
     public static Color gridColor = Color.BLACK;
 
     private GridPanel gridPanel;
     private Timer timer;
+    private GameCounter gameCounter;
 
     public GameOfLife() {
         setTitle("Game of Life");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(true);
-        int windowWidth = gridSize * cellSize;
-        int gridHeight = gridSize * cellSize;
-        int windowHeight = gridHeight + getInsets().top + getInsets().bottom;
-        setSize(windowWidth, windowHeight);
+//        int windowWidth = gridSize * cellSize;
+//        int gridHeight = gridSize * cellSize;
+//        int windowHeight = gridHeight + getInsets().top + getInsets().bottom;
+        // fullscreen
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
 
         gridPanel = new GridPanel();
         add(gridPanel);
 
         initializeGridState();
+
+        gameCounter = new GameCounter();
 
         JButton startButton = new JButton("Start");
         startButton.addActionListener(new ActionListener() {
@@ -45,6 +51,8 @@ public class GameOfLife extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 updateGridState();
                 repaint();
+                gameCounter.updateGeneration();
+                gameCounter.updatePopulation(countPopulation());
             }
         });
 
@@ -54,11 +62,11 @@ public class GameOfLife extends JFrame {
     private void initializeGridState() {
         gridState = new boolean[gridSize][gridSize];
         // Here we can initialize the grid state with some pattern
-        /*for (int i = 0; i < gridSize; i++) {
+        for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 gridState[i][j] = Math.random() < 0.5;
             }
-        }*/
+        }
     }
 
     private void startGame() {
@@ -122,5 +130,50 @@ public class GameOfLife extends JFrame {
         }
 
         return count;
+    }
+
+    private int countPopulation() {
+        int count = 0;
+
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                if (gridState[i][j]) {
+                    count++;
+                }
+            }
+        }
+        System.out.println("Generation: " + gameCounter.getGeneration() + " Population: " + gameCounter.getPopulation());
+        return count;
+    }
+
+    public class GridPanel extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
+            g.setColor(bgColor);
+            g.fillRect(0, 0, getWidth(), getHeight());
+
+            g.setColor(gridColor);
+
+            for (int j = 0; j < gridSize; j++) {
+                for (int i = 0; i < gridSize; i++) {
+                    if (gridState[i][j]) {
+                        g.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
+                    } else {
+                        g.drawRect(i * cellSize, j * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+
+            // Отображение информации о текущем поколении и количестве населения
+            g.setColor(Color.RED);
+            g.drawString("Generation: " + gameCounter.getGeneration(), 10, getHeight() - 20);
+            g.drawString("Population: " + gameCounter.getPopulation(), 10, getHeight() - 5);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(GameOfLife::new);
     }
 }
