@@ -3,6 +3,8 @@ package src;
 import javax.swing.*;
 import java.awt.*;
 
+import static src.GameOfLife.gridState;
+
 public class GridPanel extends JPanel {
     private static int gridSize = 50;
     private static int cellSize = 20;
@@ -18,7 +20,7 @@ public class GridPanel extends JPanel {
 
         for (int j = 0; j < gridSize; j++) {
             for (int i = 0; i < gridSize; i++) {
-                if (GameOfLife.gridState[i][j]) {
+                if (gridState[i][j]) {
                     g.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
                 } else {
                     g.drawRect(i * cellSize, j * cellSize, cellSize, cellSize);

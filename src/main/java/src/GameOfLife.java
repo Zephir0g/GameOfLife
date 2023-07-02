@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 public class GameOfLife extends JFrame {
 
     public static boolean[][] gridState;
-    private static int gridSize = 60;
-    private static int cellSize = 20;
+    private static int gridSize = 150;
+    private static int cellSize = 9;
     public static Color bgColor = Color.WHITE;
     public static Color gridColor = Color.BLACK;
 
