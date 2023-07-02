@@ -166,7 +166,7 @@ public class GameOfLife extends JFrame {
                 }
             }
 
-            // Отображение информации о текущем поколении и количестве населения
+            // Draw the generation and population
             g.setColor(Color.RED);
             g.drawString("Generation: " + gameCounter.getGeneration(), 10, getHeight() - 20);
             g.drawString("Population: " + gameCounter.getPopulation(), 10, getHeight() - 5);
