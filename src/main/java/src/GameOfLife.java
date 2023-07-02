@@ -18,6 +18,7 @@ public class GameOfLife extends JFrame {
     private JButton startButton;
     private JButton pauseButton;
     private JButton regenerateButton;
+    private JTextField tickRateField;
     private GridPanel gridPanel;
     private Timer timer;
     private GameCounter gameCounter;
@@ -64,12 +65,15 @@ public class GameOfLife extends JFrame {
             }
         });
         JPanel buttonPanel = new JPanel();
+
         buttonPanel.add(startButton);
         buttonPanel.add(pauseButton);
         buttonPanel.add(regenerateButton);
         add(buttonPanel, BorderLayout.NORTH);
 
-        timer = new Timer(100, new ActionListener() {
+
+
+        timer = new Timer(/*setTickRate()*/ 20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateGridState();
@@ -81,6 +85,13 @@ public class GameOfLife extends JFrame {
 
         setVisible(true);
     }
+
+
+//TODO add tickRateField
+/*    private int setTickRate() {
+        int tickRate = 100;
+        return ;
+    }*/
 
     private void initializeGridState() {
         gridState = new boolean[gridSize][gridSize];
