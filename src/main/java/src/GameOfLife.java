@@ -15,6 +15,8 @@ public class GameOfLife extends JFrame {
     public static Color bgColor = Color.WHITE;
     public static Color gridColor = Color.BLACK;
 
+    private JButton startButton;
+    private JButton pauseButton;
     private GridPanel gridPanel;
     private Timer timer;
     private GameCounter gameCounter;
@@ -44,7 +46,17 @@ public class GameOfLife extends JFrame {
                 startGame();
             }
         });
-        add(startButton, BorderLayout.NORTH);
+        pauseButton = new JButton("Pause");
+        pauseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pauseGame();
+            }
+        });
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(startButton);
+        buttonPanel.add(pauseButton);
+        add(buttonPanel, BorderLayout.NORTH);
 
         timer = new Timer(100, new ActionListener() {
             @Override
@@ -71,6 +83,14 @@ public class GameOfLife extends JFrame {
 
     private void startGame() {
         timer.start();
+        startButton.setEnabled(false);
+        pauseButton.setEnabled(true);
+    }
+
+    private void pauseGame() {
+        timer.stop();
+        startButton.setEnabled(true);
+        pauseButton.setEnabled(false);
     }
 
     private void updateGridState() {
