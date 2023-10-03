@@ -214,8 +214,4 @@ public class GameOfLife extends JFrame {
             g.drawString("Population: " + gameCounter.getPopulation(), 10, getHeight() - 5);
         }
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(GameOfLife::new);
-    }
 }
