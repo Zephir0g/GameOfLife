@@ -213,5 +213,6 @@ public class GameOfLife extends JFrame {
             g.drawString("Generation: " + gameCounter.getGeneration(), 10, getHeight() - 20);
             g.drawString("Population: " + gameCounter.getPopulation(), 10, getHeight() - 5);
         }
+
     }
 }
