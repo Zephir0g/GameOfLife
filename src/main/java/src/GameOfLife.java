@@ -204,32 +204,4 @@ public class GameOfLife extends JFrame {
         System.out.println("Generation: " + gameCounter.getGeneration() + " Population: " + gameCounter.getPopulation());
         return count;
     }
-
-    public class GridPanel extends JPanel {
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            g.setColor(bgColor);
-            g.fillRect(0, 0, getWidth(), getHeight());
-
-            g.setColor(gridColor);
-
-            for (int j = 0; j < gridSize; j++) {
-                for (int i = 0; i < gridSize; i++) {
-                    if (gridState[i][j]) {
-                        g.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
-                    } else {
-                        g.drawRect(i * cellSize, j * cellSize, cellSize, cellSize);
-                    }
-                }
-            }
-
-            // Draw the generation and population
-            g.setColor(Color.RED);
-            g.drawString("Generation: " + gameCounter.getGeneration(), 10, getHeight() - 20);
-            g.drawString("Population: " + gameCounter.getPopulation(), 10, getHeight() - 5);
-        }
-
-    }
 }
