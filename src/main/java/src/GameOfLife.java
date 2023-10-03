@@ -48,7 +48,7 @@ public class GameOfLife extends JFrame {
                 startGame();
             }
         });
-        pauseButton = new JButton("Pause");
+        pauseButton = new JButton("Stop");
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,7 +82,7 @@ public class GameOfLife extends JFrame {
 
 
 
-        timer = new Timer(/*setTickRate()*/ 20, new ActionListener() {
+        timer = new Timer(/*setTickRate()*/ 100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateGridState();
@@ -200,6 +200,9 @@ public class GameOfLife extends JFrame {
                     count++;
                 }
             }
+        }
+        if (count == 0) {
+            pauseGame();
         }
         System.out.println("Generation: " + gameCounter.getGeneration() + " Population: " + gameCounter.getPopulation());
         return count;
