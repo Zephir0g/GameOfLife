@@ -64,10 +64,19 @@ public class GameOfLife extends JFrame {
                 gameCounter.reset();
             }
         });
+        JButton clearButton = new JButton("Clear");
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearGridState();
+                repaint();
+            }
+        });
         JPanel buttonPanel = new JPanel();
 
         buttonPanel.add(startButton);
         buttonPanel.add(pauseButton);
+        buttonPanel.add(clearButton);
         buttonPanel.add(regenerateButton);
         add(buttonPanel, BorderLayout.NORTH);
 
@@ -113,6 +122,14 @@ public class GameOfLife extends JFrame {
         timer.stop();
         startButton.setEnabled(true);
         pauseButton.setEnabled(false);
+    }
+
+    private void clearGridState() {
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                gridState[i][j] = false;
+            }
+        }
     }
 
     private void updateGridState() {
