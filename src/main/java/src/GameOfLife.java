@@ -24,9 +24,6 @@ public class GameOfLife extends JFrame {
     private GameCounter gameCounter;
 
 
-    //sdjgklsdgklsd
-    //sdjgklsdgklsd
-
     public GameOfLife() {
         setTitle("Game of Life");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
