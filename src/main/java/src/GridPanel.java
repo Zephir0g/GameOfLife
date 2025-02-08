@@ -8,10 +8,10 @@ import java.awt.event.MouseListener;
 import static src.GameOfLife.gridState;
 
 public class GridPanel extends JPanel {
-    private static int gridSize = 20;
-    private static int cellSize = 20;
-    private static int gridSize = 30;
-    private static int cellSize = 18;
+    // private static int gridSize = 20;
+    // private static int cellSize = 20;
+    // private static int gridSize = 30;
+    // private static int cellSize = 18;
 
     @Override
     protected void paintComponent(Graphics g) {
