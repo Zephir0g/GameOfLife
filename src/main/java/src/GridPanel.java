@@ -2,12 +2,19 @@ package src;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 
 import static src.GameOfLife.gridState;
 
 public class GridPanel extends JPanel {
+<<<<<<< HEAD
     private static int gridSize = 20;
     private static int cellSize = 20;
+=======
+    private static int gridSize = 30;
+    private static int cellSize = 18;
+>>>>>>> 007fa6d9ac7a66c0c64fb59dbf8fb54a596b0784
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -27,5 +34,20 @@ public class GridPanel extends JPanel {
                 }
             }
         }
+    }
+
+    public GridPanel() {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                super.mouseClicked(e);
+                int x = e.getX();
+                int y = e.getY();
+                int i = x / cellSize;
+                int j = y / cellSize;
+                gridState[i][j] = !gridState[i][j];
+                repaint();
+            }
+        });
     }
 }

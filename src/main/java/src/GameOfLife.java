@@ -48,7 +48,7 @@ public class GameOfLife extends JFrame {
                 startGame();
             }
         });
-        pauseButton = new JButton("Pause");
+        pauseButton = new JButton("Stop");
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -64,16 +64,25 @@ public class GameOfLife extends JFrame {
                 gameCounter.reset();
             }
         });
+        JButton clearButton = new JButton("Clear");
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearGridState();
+                repaint();
+            }
+        });
         JPanel buttonPanel = new JPanel();
 
         buttonPanel.add(startButton);
         buttonPanel.add(pauseButton);
+        buttonPanel.add(clearButton);
         buttonPanel.add(regenerateButton);
         add(buttonPanel, BorderLayout.NORTH);
 
 
 
-        timer = new Timer(/*setTickRate()*/ 20, new ActionListener() {
+        timer = new Timer(/*setTickRate()*/ 100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateGridState();
@@ -113,6 +122,14 @@ public class GameOfLife extends JFrame {
         timer.stop();
         startButton.setEnabled(true);
         pauseButton.setEnabled(false);
+    }
+
+    private void clearGridState() {
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                gridState[i][j] = false;
+            }
+        }
     }
 
     private void updateGridState() {
@@ -184,38 +201,10 @@ public class GameOfLife extends JFrame {
                 }
             }
         }
+        if (count == 0) {
+            pauseGame();
+        }
         System.out.println("Generation: " + gameCounter.getGeneration() + " Population: " + gameCounter.getPopulation());
         return count;
-    }
-
-    public class GridPanel extends JPanel {
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            g.setColor(bgColor);
-            g.fillRect(0, 0, getWidth(), getHeight());
-
-            g.setColor(gridColor);
-
-            for (int j = 0; j < gridSize; j++) {
-                for (int i = 0; i < gridSize; i++) {
-                    if (gridState[i][j]) {
-                        g.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
-                    } else {
-                        g.drawRect(i * cellSize, j * cellSize, cellSize, cellSize);
-                    }
-                }
-            }
-
-            // Draw the generation and population
-            g.setColor(Color.RED);
-            g.drawString("Generation: " + gameCounter.getGeneration(), 10, getHeight() - 20);
-            g.drawString("Population: " + gameCounter.getPopulation(), 10, getHeight() - 5);
-        }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(GameOfLife::new);
     }
 }
